@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 金融数据报表中心</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        .report-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .report-card:hover {
+            transform: translateX(5px);
+            background: rgba(255,255,255,0.08);
+        }
+        .report-name { font-size: 1.1em; }
+        .report-date { color: #888; font-size: 0.9em; }
+        .view-btn {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .view-btn:hover { opacity: 0.9; }
+        .latest { border-left: 3px solid #00ff88; }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 金融数据报表中心</h1>
+        <p class="subtitle">自动更新 · 数据仅供参考</p>
+
+        <div class="report-card latest">
+            <div>
+                <div class="report-name">📌 最新报表</div>
+                <div class="report-date">2026-06-25 06:24</div>
+            </div>
+            <a href="finance_report_latest.html" class="view-btn">查看报表 →</a>
+        </div>
+    
+        <div class="report-card">
+            <div>
+                <div class="report-name">📅 20260625</div>
+                <div class="report-date">2026-06-25 06:24</div>
+            </div>
+            <a href="finance_report_20260625_062428.html" class="view-btn">查看报表 →</a>
+        </div>
+    
+        <div class="footer">
+            <p>由 GitHub Actions 自动运行 · 每周一至周五 20:00 更新</p>
+        </div>
+    </div>
+</body>
+</html>
