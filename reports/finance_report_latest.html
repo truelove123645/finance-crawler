@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融市场数据报表</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .timestamp {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .emoji { font-size: 1.2em; margin-right: 10px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        th {
+            background: rgba(255,255,255,0.1);
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        .positive { color: #00ff88; }
+        .negative { color: #ff4757; }
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .news-title { font-size: 1em; margin-bottom: 5px; }
+        .news-meta { color: #888; font-size: 0.85em; }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        @media (max-width: 768px) {
+            table { font-size: 0.85em; }
+            th, td { padding: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 金融市场数据报表</h1>
+        <p class="timestamp">生成时间：2026-06-25 13:42:35</p>
+
+        
+
+        
+
+        
+
+        
+
+        
+        <div class="section">
+            <h2><span class="emoji">📊</span>基金净值</h2>
+            <table>
+                <tr>
+                    <th>基金代码</th>
+                    <th>最新净值</th>
+                    <th>涨跌幅</th>
+                    <th>净值日期</th>
+                </tr>
+                
+                <tr>
+                    <td>161725</td>
+                    <td>0.5066</td>
+                    <td class="negative">-2.13%</td>
+                    <td>2026-06-24</td>
+                </tr>
+                
+                <tr>
+                    <td>161726</td>
+                    <td>0.3533</td>
+                    <td class="positive">+1.64%</td>
+                    <td>2026-06-24</td>
+                </tr>
+                
+                <tr>
+                    <td>005827</td>
+                    <td>1.5093</td>
+                    <td class="positive">+0.58%</td>
+                    <td>2026-06-24</td>
+                </tr>
+                
+                <tr>
+                    <td>003834</td>
+                    <td>3.4240</td>
+                    <td class="positive">+0.44%</td>
+                    <td>2026-06-24</td>
+                </tr>
+                
+                <tr>
+                    <td>110011</td>
+                    <td>3.9910</td>
+                    <td class="negative">-0.51%</td>
+                    <td>2026-06-24</td>
+                </tr>
+                
+            </table>
+        </div>
+        
+
+        
+        <div class="section">
+            <h2><span class="emoji">💱</span>外汇汇率</h2>
+            <table>
+                <tr>
+                    <th>货币对</th>
+                    <th>汇率</th>
+                    <th>更新时间</th>
+                </tr>
+                
+                <tr>
+                    <td>USD/CNY</td>
+                    <td>6.8200</td>
+                    <td>2026-06-25</td>
+                </tr>
+                
+                <tr>
+                    <td>EUR/USD</td>
+                    <td>1.1400</td>
+                    <td>2026-06-25</td>
+                </tr>
+                
+                <tr>
+                    <td>GBP/USD</td>
+                    <td>1.3200</td>
+                    <td>2026-06-25</td>
+                </tr>
+                
+                <tr>
+                    <td>USD/JPY</td>
+                    <td>161.7400</td>
+                    <td>2026-06-25</td>
+                </tr>
+                
+                <tr>
+                    <td>AUD/USD</td>
+                    <td>0.6900</td>
+                    <td>2026-06-25</td>
+                </tr>
+                
+            </table>
+        </div>
+        
+
+        
+        <div class="section">
+            <h2><span class="emoji">📰</span>最新财经新闻</h2>
+            
+            <div class="news-item">
+                <div class="news-title">比特币跌势可能加深 将面临100亿美元期权到期的冲击</div>
+                <div class="news-meta">环球市场播报 · 2026-06-25 13:41</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">油价正跌回战前水平？经济学家警告：这不一定能让通胀降温……</div>
+                <div class="news-meta">滚动播报 · 2026-06-25 13:34</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">美国防务公司安杜里尔据悉洽购日产追浜工厂，以转型生产军用无人机</div>
+                <div class="news-meta">环球市场播报 · 2026-06-25 13:21</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">首钢朗泽午后涨逾9%再创新高 现场数据中心整合CCUS技术成为行业新趋势</div>
+                <div class="news-meta">新浪港股 · 2026-06-25 13:18</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">心泰医疗午后涨逾14% 自研MemoSorb®全球化进程突破</div>
+                <div class="news-meta">新浪港股 · 2026-06-25 13:15</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">绿源集团控股午后涨逾15% 控股股东拟转让近5%股份</div>
+                <div class="news-meta">新浪港股 · 2026-06-25 13:13</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">韩国交易所推迟推出三星和海力士等个股周度期权</div>
+                <div class="news-meta">环球市场播报 · 2026-06-25 13:08</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">三星电子一季度保持全球DRAM市占率第一</div>
+                <div class="news-meta">环球市场播报 · 2026-06-25 13:04</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">去年韩国在美金融资产首次突破1万亿美元，创历史新高</div>
+                <div class="news-meta">环球市场播报 · 2026-06-25 13:00</div>
+            </div>
+            
+            <div class="news-item">
+                <div class="news-title">单日狂跌120美元！金价击穿4000美元创8个月新低，黄金牛市要终结了？</div>
+                <div class="news-meta">市场资讯 · 2026-06-25 12:46</div>
+            </div>
+            
+        </div>
+        
+
+        <div class="footer">
+            <p>数据来源：新浪财经、Yahoo Finance、CoinGecko、ExchangeRate-API</p>
+            <p>⚠️ 数据仅供参考，投资需谨慎</p>
+        </div>
+    </div>
+</body>
+</html>
+    

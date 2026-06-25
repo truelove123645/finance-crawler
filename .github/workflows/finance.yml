@@ -1,0 +1,184 @@
+name: 📊 金融数据爬虫
+
+on:
+  # 定时触发：每天北京时间 20:00 (UTC 12:00)，周一到周五
+  schedule:
+    - cron: '0 12 * * 1-5'
+
+  # 手动触发
+  workflow_dispatch:
+    inputs:
+      markets:
+        description: '要获取的市场 (all/a/us/crypto/fund/fx/news)'
+        required: false
+        default: 'all'
+
+# 限制并发运行
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  fetch-finance-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+
+    steps:
+      - name: 📥 检出代码
+        uses: actions/checkout@v4
+
+      - name: 🐍 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: 📦 安装依赖
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🏃 运行爬虫
+        run: python main.py
+        continue-on-error: true  # 部分数据源失败不影响整体
+
+      - name: 📊 生成索引页面
+        run: |
+          python -c "
+          import os
+          from datetime import datetime
+
+          reports_dir = 'reports'
+          if not os.path.exists(reports_dir):
+              os.makedirs(reports_dir)
+
+          # 获取所有报表文件
+          reports = []
+          for f in os.listdir(reports_dir):
+              if f.endswith('.html') and f != 'index.html':
+                  reports.append(f)
+
+          reports.sort(reverse=True)
+
+          # 生成索引页面
+          html = '''<!DOCTYPE html>
+          <html lang=\"zh-CN\">
+          <head>
+              <meta charset=\"UTF-8\">
+              <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+              <title>📊 金融数据报表中心</title>
+              <style>
+                  * { margin: 0; padding: 0; box-sizing: border-box; }
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif;
+                      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                      color: #fff;
+                      min-height: 100vh;
+                      padding: 40px 20px;
+                  }
+                  .container { max-width: 800px; margin: 0 auto; }
+                  h1 {
+                      text-align: center;
+                      font-size: 2.5em;
+                      margin-bottom: 10px;
+                      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+                      -webkit-background-clip: text;
+                      -webkit-text-fill-color: transparent;
+                  }
+                  .subtitle {
+                      text-align: center;
+                      color: #888;
+                      margin-bottom: 40px;
+                  }
+                  .report-card {
+                      background: rgba(255,255,255,0.05);
+                      border-radius: 12px;
+                      padding: 20px;
+                      margin-bottom: 15px;
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      transition: transform 0.2s;
+                      border: 1px solid rgba(255,255,255,0.1);
+                  }
+                  .report-card:hover {
+                      transform: translateX(5px);
+                      background: rgba(255,255,255,0.08);
+                  }
+                  .report-name { font-size: 1.1em; }
+                  .report-date { color: #888; font-size: 0.9em; }
+                  .view-btn {
+                      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+                      color: white;
+                      padding: 10px 25px;
+                      border-radius: 25px;
+                      text-decoration: none;
+                      font-weight: 500;
+                      transition: opacity 0.2s;
+                  }
+                  .view-btn:hover { opacity: 0.9; }
+                  .latest { border-left: 3px solid #00ff88; }
+                  .footer {
+                      text-align: center;
+                      margin-top: 40px;
+                      color: #666;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class=\"container\">
+                  <h1>📊 金融数据报表中心</h1>
+                  <p class=\"subtitle\">自动更新 · 数据仅供参考</p>
+          '''
+
+          for i, report in enumerate(reports):
+              date_str = report.replace('finance_report_', '').replace('.html', '')
+              try:
+                  if date_str == 'latest':
+                      display_name = '📌 最新报表'
+                      date_display = datetime.now().strftime('%Y-%m-%d %H:%M')
+                  else:
+                      display_name = f'📅 {date_str[:8]}'
+                      date_display = f'{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]} {date_str[9:11]}:{date_str[11:13]}'
+              except:
+                  display_name = report
+                  date_display = ''
+
+              latest_class = ' latest' if i == 0 else ''
+
+              html += f'''
+                  <div class=\"report-card{latest_class}\">
+                      <div>
+                          <div class=\"report-name\">{display_name}</div>
+                          <div class=\"report-date\">{date_display}</div>
+                      </div>
+                      <a href=\"{report}\" class=\"view-btn\">查看报表 →</a>
+                  </div>
+              '''
+
+          html += '''
+                  <div class=\"footer\">
+                      <p>由 GitHub Actions 自动运行 · 每周一至周五 20:00 更新</p>
+                  </div>
+              </div>
+          </body>
+          </html>
+          '''
+
+          with open(os.path.join(reports_dir, 'index.html'), 'w', encoding='utf-8') as f:
+              f.write(html)
+          print('✅ 索引页面已生成')
+          "
+
+      - name: 🚀 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./reports
+          destination_dir: .
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: '📊 更新金融报表 ${{ github.run_number }}'
